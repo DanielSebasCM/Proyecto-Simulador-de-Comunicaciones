@@ -96,7 +96,7 @@ void Operator::addTotalInternetUsage(double ammount) {
 std::string Operator::toString() const {
   std::ostringstream stream;
 
-  stream << std::setprecision(2) << "Operator #" << id << " : " << totalSpentTalkingTime << " " 
+  stream << std::fixed << std::setprecision(2) << "Operator #" << id << " : " << totalSpentTalkingTime << " " 
       << totalMessageSent << " " << totalInternetUsage << "\n";
   std::string str = stream.str();
 

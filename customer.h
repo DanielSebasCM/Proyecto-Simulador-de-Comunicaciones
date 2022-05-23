@@ -73,7 +73,7 @@ Customer::Customer(const Customer &other) {
 std::string Customer::toString() const {
     std::ostringstream stream;
 
-  stream << std::setprecision(2) << "Customer #" << id << " : " 
+  stream << std::fixed << std::setprecision(2) << "Customer #" << id << " : " 
         << bill->getTotalMoneySpent() << " " << bill->getCurrentDebt() << "\n";
   std::string str = stream.str();
 
