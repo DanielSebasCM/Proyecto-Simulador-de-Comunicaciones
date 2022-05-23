@@ -65,9 +65,9 @@ Operator::Operator(const Operator &other) {
   networkCharge = other.networkCharge;
   discountRate = other.discountRate;
   type = other.type;
-  totalSpentTalkingTime = 0;
-  totalMessageSent = 0;
-  totalInternetUsage = 0;
+  totalSpentTalkingTime = other.totalSpentTalkingTime;
+  totalMessageSent = other.totalMessageSent;
+  totalInternetUsage = other.totalInternetUsage;
 }
 
 void Operator::addTalkingTime(int minute) {
