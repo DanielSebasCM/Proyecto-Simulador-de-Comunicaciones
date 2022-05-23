@@ -1,8 +1,8 @@
 // =========================================================
 // File: operator.h
-// Author:
-// Date:
-// Description:
+// Author: Daniel Sebastian Cajas Morales
+// Date: 23/05/2022
+// Description: Implementation of operator detailed in README
 // =========================================================
 
 #ifndef OPERATOR_H

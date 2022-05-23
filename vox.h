@@ -1,8 +1,8 @@
 // =========================================================
 // File: vox.h
-// Author:
-// Date:
-// Description:
+// Author: Daniel Sebastian Cajas Morales
+// Date: 23/05/2022
+// Description: Implementation of vox detailed in README
 // =========================================================
 
 #ifndef VOXOPERATOR_H

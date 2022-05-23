@@ -1,8 +1,8 @@
 // =========================================================
-// File: vox.h
-// Author:
-// Date:
-// Description:
+// File: internet.h
+// Author: Daniel Sebastian Cajas Morales
+// Date: 23/05/2022
+// Description: Implementation of intenet detailed in README
 // =========================================================
 
 #ifndef InternetOperator_H

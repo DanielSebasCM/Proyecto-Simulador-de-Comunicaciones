@@ -1,10 +1,8 @@
 // =========================================================
 // File: main.cpp
-// Author:
-// Date:
-// Description:
-// To compile: g++ -std=c++11 main.cpp -o app
-// To execute: ./app input_file output_file
+// Author: Daniel Sebastian Cajas Morales
+// Date: 23/05/2022
+// Description: Implementation of main detailed in README
 // =========================================================
 #include <iostream>
 #include <string>
