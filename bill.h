@@ -1,8 +1,9 @@
 // =========================================================
 // File: bill.h
-// Author:
-// Date:
-// Description:
+// Author: Danel Sebastian Cajas Morales
+// Date: 23/05/2022
+// Description: Reperesenta las facturas generadas con las transacciones entre 
+// clientes y operadores
 // =========================================================
 
 #ifndef BILL_H
@@ -27,4 +28,67 @@ public:
   bool check(double) const;
 };
 
+Bill::Bill() {
+  limitAmount = 0;
+  currentDebt = 0;
+  totalMoneySpent = 0;
+}
+
+Bill::Bill(double limit) {
+  limitAmount = limit;
+  currentDebt = 0;
+  totalMoneySpent = 0;
+}
+
+Bill::Bill(const Bill &other) {
+  limitAmount = other.limitAmount;
+  currentDebt = other.currentDebt;
+  totalMoneySpent = other.totalMoneySpent;
+}
+
+double Bill::getLimitAmount() const {
+  return limitAmount;
+}
+
+double Bill::getCurrentDebt() const {
+  return currentDebt;
+}
+
+double Bill::getTotalMoneySpent() const {
+  return totalMoneySpent;
+}
+
+void Bill::add(double ammount) {
+  if (ammount <= 0) {
+    return;
+  }
+
+  currentDebt += ammount;
+}
+
+void Bill::pay(double ammount) {
+  if (ammount <= 0) {
+    return;
+  }
+
+  if (ammount > currentDebt) {
+    ammount = currentDebt;
+  }
+
+  totalMoneySpent += ammount;
+  currentDebt -= ammount;
+  return;
+}
+
+void Bill::changeTheLimit(double ammount) {
+  if (ammount <= 0 || ammount <= currentDebt) {
+    return;
+  }
+
+  limitAmount = ammount;
+}
+
+bool Bill::check(double ammount) {
+  return (currentDebt + ammount) <= limitAmount;
+}
 #endif
