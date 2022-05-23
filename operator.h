@@ -22,6 +22,7 @@ protected:
   OperatorType type;
 
 public:
+  Operator();
   Operator(int, double, double, double, int, OperatorType);
   Operator(const Operator&);
 
@@ -41,10 +42,14 @@ public:
 
   std::string toString() const;
 
-  virtual double calculateTalkingCost(int, int) = 0;
-  virtual double calculateMessageCost(int, int, int) = 0;
-  virtual double calculateNetworkCost(double) = 0;
+  virtual double calculateTalkingCost(int, int){return 0;}
+  virtual double calculateMessageCost(int, int, int){return 0;}
+  virtual double calculateNetworkCost(double){return 0;}
 };
+
+Operator::Operator(){
+  id = -1;
+}
 
 Operator::Operator(int i, double talking, double message, double network, int discount, OperatorType typ) {
   id = i;

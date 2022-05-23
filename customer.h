@@ -21,6 +21,7 @@ private:
   Bill *bill;
 
 public:
+  Customer(){}
   Customer(int, std::string, int, Operator*, double);
   Customer(const Customer&);
 //  ~Customer();
