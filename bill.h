@@ -62,33 +62,26 @@ double Bill::getTotalMoneySpent() const {
 }
 
 void Bill::add(double ammount) {
-  if (ammount <= 0) {
-    return;
+  if (ammount > 0) {
+    currentDebt += ammount;
   }
-
-  currentDebt += ammount;
 }
 
 void Bill::pay(double ammount) {
-  if (ammount <= 0) {
-    return;
-  }
+  if (ammount > 0) {
+    if (ammount > currentDebt) {
+      ammount = currentDebt;
+    }
 
-  if (ammount > currentDebt) {
-    ammount = currentDebt;
+    totalMoneySpent += ammount;
+    currentDebt -= ammount;
   }
-
-  totalMoneySpent += ammount;
-  currentDebt -= ammount;
-  return;
 }
 
 void Bill::changeTheLimit(double ammount) {
-  if (ammount <= 0 || ammount <= currentDebt) {
-    return;
+  if (!(ammount <= 0 || ammount <= currentDebt)) {
+    limitAmount = ammount;
   }
-
-  limitAmount = ammount;
 }
 
 bool Bill::check(double ammount) const {
