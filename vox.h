@@ -28,10 +28,10 @@ VoxOperator::VoxOperator(const VoxOperator &other)
 
 double VoxOperator::calculateTalkingCost(int minute, int age) {
   double cost = 0;
-  if (minute > 0) {
+  if (minute > 0 && age > 0) {
     cost = minute * talkingCharge;
     if (age < 18 || age > 65) {
-      cost *= discountRate;
+      cost -= cost  *  discountRate/100;
     }
   }
 
@@ -43,7 +43,7 @@ double VoxOperator::calculateMessageCost(int quantity, int thisOpId, int otherOp
   if (quantity > 0) {
     cost = quantity * messageCost;
     if (thisOpId == otherOpId) {
-      cost *= discountRate;
+      cost -= cost  *  discountRate/100;
     }
   }
 
