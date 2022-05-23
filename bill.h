@@ -35,6 +35,9 @@ Bill::Bill() {
 }
 
 Bill::Bill(double limit) {
+  if (limit <= 0 ) {
+    limit = 0;
+  }
   limitAmount = limit;
   currentDebt = 0;
   totalMoneySpent = 0;
@@ -88,7 +91,7 @@ void Bill::changeTheLimit(double ammount) {
   limitAmount = ammount;
 }
 
-bool Bill::check(double ammount) {
+bool Bill::check(double ammount) const {
   return (currentDebt + ammount) <= limitAmount;
 }
 #endif
