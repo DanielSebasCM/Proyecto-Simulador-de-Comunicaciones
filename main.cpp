@@ -107,6 +107,50 @@ int main(int argc, char* argv []) {
         }
     }
 
+    for (int i = 0; i < op_count; i++) {
+
+      outputFile << std::fixed << std::setprecision(2) << "Operator " << i << ": " << operators[i].getTotalSpentTalkingTime() << " " 
+                 << operators[i].getTotalMessageSent() << " " << operators[i].getTotalInternetUsage() << "\n";
+    }
+
+    int max_time = 0;
+    int max_messages = 0;
+    double max_connection = 0;
+    int id_max_time = 0;
+    int id_max_messages = 0;
+    int id_max_connection = 0;
+    
+    
+    for (int i = 0; i < customer_count; i++) {
+
+      outputFile << std::fixed << std::setprecision(2) << "Customer " << i << ": " 
+                 << customers[i].getBill()->getTotalMoneySpent() << " " 
+                 << customers[i].getBill()->getCurrentDebt() << "\n";
+
+      if (customers[i].getTotalSpentTalkingTime() > max_time) {
+        max_time = customers[i].getTotalSpentTalkingTime();
+        id_max_time = i;
+      }
+      if (customers[i].getTotalMessageSent() > max_messages) {
+        max_messages = customers[i].getTotalMessageSent();
+        id_max_messages = i;
+      }
+      if (customers[i].getTotalInternetUsage() > max_connection) {
+        max_connection = customers[i].getTotalInternetUsage();
+        id_max_connection = i;
+      }
+    }
+
+    outputFile << std::fixed << std::setprecision(2) << customers[id_max_time].getName() << ": " 
+               << customers[id_max_time].getTotalSpentTalkingTime() << "\n";
+
+    outputFile << std::fixed << std::setprecision(2) << customers[id_max_messages].getName() << ": " 
+               << customers[id_max_messages].getTotalMessageSent() << "\n";
+
+    outputFile << std::fixed << std::setprecision(2) << customers[id_max_connection].getName() << ": " 
+               << customers[id_max_connection].getTotalInternetUsage() << "\n";
+
+
     inputFile.close();
     outputFile.close();
 

@@ -64,6 +64,7 @@ double Bill::getTotalMoneySpent() const {
 void Bill::add(double ammount) {
   if (ammount > 0) {
     currentDebt += ammount;
+    totalMoneySpent += ammount;
   }
 }
 
@@ -73,7 +74,6 @@ void Bill::pay(double ammount) {
       ammount = currentDebt;
     }
 
-    totalMoneySpent += ammount;
     currentDebt -= ammount;
   }
 }
