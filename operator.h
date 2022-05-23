@@ -46,4 +46,91 @@ public:
   virtual double calculateNetworkCost(double) = 0;
 };
 
+Operator::Operator(int i, double talking, double message, double network, int discount, OperatorType typ) {
+  id = i;
+  talkingCharge = talking;
+  messageCost = message;
+  networkCharge = network;
+  discountRate = discount;
+  type = typ;
+  totalSpentTalkingTime = 0;
+  totalMessageSent = 0;
+  totalInternetUsage = 0;
+}
+
+Operator::Operator(const Operator &other) {
+  id = other.id;
+  talkingCharge = other.talkingCharge;
+  messageCost = other.messageCost;
+  networkCharge = other.networkCharge;
+  discountRate = other.discountRate;
+  type = other.type;
+  totalSpentTalkingTime = 0;
+  totalMessageSent = 0;
+  totalInternetUsage = 0;
+}
+
+void Operator::addTalkingTime(int minute) {
+  if (minute > 0) {
+    totalSpentTalkingTime += minute;
+  }
+}
+
+void Operator::addTotalMessageSent(int message) {
+  if (message > 0) {
+    totalMessageSent += message;
+  }
+}
+
+void Operator::addTotalInternetUsage(double ammount) {
+  if (ammount > 0) {
+    totalInternetUsage += ammount;
+  }
+}
+
+std::string Operator::toString() const {
+  std::ostringstream oss;
+
+  oss << "Operator #" << id << " : " << totalSpentTalkingTime << " " 
+      << totalMessageSent << " " << totalInternetUsage << "\n";
+  std::string str = oss.str();
+
+  return str;
+}
+
+  int Operator::getId() const {
+    return id;
+  }
+
+  int Operator::getDiscountRate() const {
+    return discountRate;
+  }
+
+  double Operator::getTalkingChage() const {
+    return talkingCharge;
+  }
+
+  double Operator::getMessageCost() const {
+    return messageCost;
+  }
+
+  double Operator::getNetworkCharge() const {
+    return networkCharge;
+  }
+
+  int Operator::getTotalSpentTalkingTime() const {
+    return totalSpentTalkingTime;
+  }
+
+  int Operator::getTotalMessageSent() const {
+    return totalMessageSent;
+  }
+
+  double Operator::getTotalInternetUsage() const {
+    return totalInternetUsage;
+  }
+
+  OperatorType Operator::getType() const {
+    return type;
+  }
 #endif
