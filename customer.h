@@ -44,4 +44,36 @@ public:
   void pay(double);
 };
 
+
+
+int Customer::getId() const {
+  return id;
+}
+
+int Customer::getAge() const {
+  return age;
+}
+
+int Customer::getTotalSpentTalkingTime() const {
+  return totalSpentTalkingTime;
+}
+
+int Customer::getTotalMessageSent() const {
+  return totalMessageSent;
+}
+
+double Customer::getTotalInternetUsage() const {
+  return totalInternetUsage;
+}
+
+std::string Customer::getName() const {
+  return name;
+}
+
+Operator* Customer::getOperator() const {
+  return op;
+}
+Bill* Customer::getBill() const {
+  return bill;
+}
 #endif
