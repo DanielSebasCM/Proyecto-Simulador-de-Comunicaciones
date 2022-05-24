@@ -8,7 +8,7 @@
 
 #ifndef BILL_H
 #define BILL_H
-
+#include <iostream>
 class Bill {
 private:
   double limitAmount, currentDebt, totalMoneySpent;
@@ -64,17 +64,16 @@ double Bill::getTotalMoneySpent() const {
 void Bill::add(double ammount) {
   if (ammount > 0) {
     currentDebt += ammount;
-    totalMoneySpent += ammount;
   }
 }
 
-void Bill::pay(double ammount) {
-  if (ammount > 0) {
-    if (ammount > currentDebt) {
-      ammount = currentDebt;
+void Bill::pay(double amount) {
+  if (amount > 0) {
+    if (amount > currentDebt) {
+      amount = currentDebt;
     }
-
-    currentDebt -= ammount;
+    totalMoneySpent += amount;
+    currentDebt -= amount;
   }
 }
 
