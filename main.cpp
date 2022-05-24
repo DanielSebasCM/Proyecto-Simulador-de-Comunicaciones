@@ -51,8 +51,11 @@ int main(int argc, char* argv []) {
 
     inputFile >> C >> O >> N;
 
-    Customer customers[C];
+    vector<Customer> customers;
     vector<Operator *> operators;
+
+    customers.resize(C);
+    operators.resize(O);
 
     int op_count = 0;
     int customer_count = 0;
@@ -63,82 +66,87 @@ int main(int argc, char* argv []) {
         switch (inst) {
             case 1: 
                 inputFile >> name >> age >> id_op >> limit;
-                customers[customer_count] = Customer(customer_count, name, age, operators[id_op], limit);
+                customers.at(customer_count) = Customer(customer_count, name, age, operators.at(id_op), limit);
                 customer_count ++;
                 break;
             case 2: 
                 inputFile >> type >> talking_charge >> message_cost >> network_charge >> discount_rate;
                 if (type == 1) {
-                  operators.push_back(new VoxOperator(op_count, talking_charge, message_cost, network_charge, discount_rate, VOX));
+                  operators.at(op_count) = (new VoxOperator(op_count, talking_charge, message_cost, network_charge, discount_rate, VOX));
                   op_count ++;
                 }
                 else if (type == 2) {
-                  operators.push_back(new InternetOperator(op_count, talking_charge, message_cost, network_charge, discount_rate, VOX));
+                  operators.at(op_count) = (new InternetOperator(op_count, talking_charge, message_cost, network_charge, discount_rate, VOX));
                   op_count ++;
                 }
                 break;
             case 3: 
                 inputFile >> id_c1 >> id_c2 >> minutes;
-                customers[id_c1].talk(minutes, customers[id_c2]);
+                customers.at(id_c1).talk(minutes, customers.at(id_c2));
                 break;
             case 4: 
                 inputFile >> id_c1 >> id_c2 >> quantity;
-                customers[id_c1].message(quantity, customers[id_c2]);
+                customers.at(id_c1).message(quantity, customers.at(id_c2));
                 break;
             case 5: 
                 inputFile >> id_c1 >> amount;
-                customers[id_c1].connection(amount);
+                customers.at(id_c1).connection(amount);
                 break;
             case 6: 
                 inputFile >> id_c1 >> amount;
-                customers[id_c1].pay(amount);
+                customers.at(id_c1).pay(amount);
                 break;
             case 7:
                 inputFile >> id_c1 >> id_op;
-                customers[id_c1].setOperator(operators[id_op]);
+                customers.at(id_c1).setOperator(operators.at(id_op));
                 break;
             case 8:
                 inputFile >> id_c1 >> limit;
-                customers[id_c1].getBill()->changeTheLimit(limit);
+                customers.at(id_c1).getBill()->changeTheLimit(limit);
             default:
                 break;
         }
     }
+    
+    vector<Operator *>::iterator itr_op;
+    for (itr_op = operators.begin(); itr_op != operators.end(); itr_op++) {
 
-    for (int i = 0; i < op_count; i++) {
-
-      outputFile << std::fixed << std::setprecision(2) << "Operator " << i << ": " << operators[i]->getTotalSpentTalkingTime() << " " 
-                 << operators[i]->getTotalMessageSent() << " " << operators[i]->getTotalInternetUsage() << "\n";
+      outputFile << std::fixed << std::setprecision(2) << "Operator " << (*itr_op)->getId() << ": " << (*itr_op)->getTotalSpentTalkingTime() << " " 
+                 << (*itr_op)->getTotalMessageSent() << " " << (*itr_op)->getTotalInternetUsage() << "\n";
     }
 
     int max_time = 0;
     int max_messages = 0;
     double max_connection = 0;
+    
     int id_max_time = 0;
     int id_max_messages = 0;
     int id_max_connection = 0;
     
-    
-    for (int i = 0; i < customer_count; i++) {
+    vector<Customer>::iterator itr_c;
+    for (itr_c = customers.begin(); itr_c != customers.end(); itr_c++) {
 
-      outputFile << std::fixed << std::setprecision(2) << "Customer " << i << ": " 
-                 << customers[i].getBill()->getTotalMoneySpent() << " " 
-                 << customers[i].getBill()->getCurrentDebt() << "\n";
+      // Writes the Customers and theit total money spent, current debt 
+      outputFile << std::fixed << std::setprecision(2) << "Customer " << itr_c->getId() << ": " 
+                 << itr_c->getBill()->getTotalMoneySpent() << " " 
+                 << itr_c->getBill()->getCurrentDebt() << "\n";
 
-      if (customers[i].getTotalSpentTalkingTime() > max_time) {
-        max_time = customers[i].getTotalSpentTalkingTime();
-        id_max_time = i;
+      // Finds de customers with the most time, messages and networking used
+      if (itr_c->getTotalSpentTalkingTime() > max_time) {
+        max_time = itr_c->getTotalSpentTalkingTime();
+        id_max_time = itr_c->getId();
       }
-      if (customers[i].getTotalMessageSent() > max_messages) {
-        max_messages = customers[i].getTotalMessageSent();
-        id_max_messages = i;
+      if (itr_c->getTotalMessageSent() > max_messages) {
+        max_messages = itr_c->getTotalMessageSent();
+        id_max_messages = itr_c->getId();
       }
-      if (customers[i].getTotalInternetUsage() > max_connection) {
-        max_connection = customers[i].getTotalInternetUsage();
-        id_max_connection = i;
+      if (itr_c->getTotalInternetUsage() > max_connection) {
+        max_connection = itr_c->getTotalInternetUsage();
+        id_max_connection = itr_c->getId();
       }
     }
 
+    // Writes the customers with most time, messages and networking used
     outputFile << std::fixed << std::setprecision(2) << customers[id_max_time].getName() << ": " 
                << customers[id_max_time].getTotalSpentTalkingTime() << "\n";
 
@@ -147,11 +155,26 @@ int main(int argc, char* argv []) {
 
     outputFile << std::fixed << std::setprecision(2) << customers[id_max_connection].getName() << ": " 
                << customers[id_max_connection].getTotalInternetUsage() << "\n";
+/*
+    outputFile << std::fixed << std::setprecision(2) << customers[3].getName() << ": " 
+               << customers[3].getTotalSpentTalkingTime() << " " 
+               << customers[3].getTotalMessageSent() << " " 
+               << customers[3].getTotalInternetUsage() << "\n";
+*/
 
-
+    // Close files
     inputFile.close();
     outputFile.close();
 
+    // Free memory alocated in vectors
+    customers.clear();
+
+    // Deconstruct operators
+    for (int i = 0; i < operators.size(); ++i) {
+        delete operators[i];
+    }
+
+    operators.clear();
 
     return 0;
 }
