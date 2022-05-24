@@ -22,6 +22,7 @@ app
 *.tar
 *.zip
 
+
 # Logs and databases #
 ######################
 *.log
@@ -37,9 +38,11 @@ app
 .Trashes
 ehthumbs.db
 Thumbs.db
+settings.json
 
 # Test file generated #
 #######################
 CMakeFiles/
 cmake_install.cmake
 CMakeCache.txt
+*.txt
