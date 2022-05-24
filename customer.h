@@ -24,7 +24,7 @@ public:
   Customer(){}
   Customer(int, std::string, int, Operator*, double);
   Customer(const Customer&);
-//  ~Customer();
+  ~Customer();
 
   int getId() const;
   int getAge() const;
@@ -45,7 +45,7 @@ public:
   void talk (int, Customer&);
   void message(int, const Customer&);
   void connection(double);
-//  void pay(double);
+  void pay(double);
 };
 
 Customer::Customer(int id_, std::string name_, int age_, Operator* op_, double limit) {
@@ -53,7 +53,7 @@ Customer::Customer(int id_, std::string name_, int age_, Operator* op_, double l
   name = name_;
   age = age_;
   op = op_;
-  *bill = Bill(limit);
+  bill = new Bill(limit);
   totalInternetUsage = 0;
   totalMessageSent = 0;
   totalSpentTalkingTime = 0;
@@ -68,6 +68,10 @@ Customer::Customer(const Customer &other) {
   totalInternetUsage = other.totalInternetUsage;
   bill = other.bill;
   op = other.op;
+}
+
+Customer::~Customer() {
+  delete bill;
 }
 
 std::string Customer::toString() const {
@@ -89,7 +93,9 @@ void Customer::talk (int minutes, Customer &other) {
       addTalkingTime(minutes);
       other.addTalkingTime(minutes);
       op->addTalkingTime(minutes);
-      other.op->addTalkingTime(minutes);
+      if (op->getId() != other.op->getId()) {
+        other.op->addTalkingTime(minutes);
+      }
     }
   }
 }
@@ -115,6 +121,10 @@ void Customer::connection(double ammount) {
       op->addTotalInternetUsage(ammount);
     }
   }
+}
+
+void Customer::pay(double amount) {
+  bill->pay(amount);
 }
 
 int Customer::getId() const {
