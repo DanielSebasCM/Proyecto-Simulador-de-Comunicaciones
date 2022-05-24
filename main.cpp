@@ -52,7 +52,7 @@ int main(int argc, char* argv []) {
     inputFile >> C >> O >> N;
 
     Customer customers[C];
-    Operator operators[O];
+    vector<Operator *> operators;
 
     int op_count = 0;
     int customer_count = 0;
@@ -63,17 +63,17 @@ int main(int argc, char* argv []) {
         switch (inst) {
             case 1: 
                 inputFile >> name >> age >> id_op >> limit;
-                customers[customer_count] = Customer(customer_count, name, age, &operators[id_op], limit);
+                customers[customer_count] = Customer(customer_count, name, age, operators[id_op], limit);
                 customer_count ++;
                 break;
             case 2: 
                 inputFile >> type >> talking_charge >> message_cost >> network_charge >> discount_rate;
                 if (type == 1) {
-                  operators[op_count] = VoxOperator(op_count, talking_charge, message_cost, network_charge, discount_rate, VOX);
+                  operators.push_back(new VoxOperator(op_count, talking_charge, message_cost, network_charge, discount_rate, VOX));
                   op_count ++;
                 }
                 else if (type == 2) {
-                  operators[op_count] = InternetOperator(op_count, talking_charge, message_cost, network_charge, discount_rate, INTERNET);
+                  operators.push_back(new InternetOperator(op_count, talking_charge, message_cost, network_charge, discount_rate, VOX));
                   op_count ++;
                 }
                 break;
@@ -91,11 +91,11 @@ int main(int argc, char* argv []) {
                 break;
             case 6: 
                 inputFile >> id_c1 >> amount;
-                customers[id_c1].getBill()->pay(amount);
+                customers[id_c1].pay(amount);
                 break;
             case 7:
                 inputFile >> id_c1 >> id_op;
-                customers[id_c1].setOperator(&operators[id_op]);
+                customers[id_c1].setOperator(operators[id_op]);
                 break;
             case 8:
                 inputFile >> id_c1 >> limit;
@@ -107,8 +107,8 @@ int main(int argc, char* argv []) {
 
     for (int i = 0; i < op_count; i++) {
 
-      outputFile << std::fixed << std::setprecision(2) << "Operator " << i << ": " << operators[i].getTotalSpentTalkingTime() << " " 
-                 << operators[i].getTotalMessageSent() << " " << operators[i].getTotalInternetUsage() << "\n";
+      outputFile << std::fixed << std::setprecision(2) << "Operator " << i << ": " << operators[i]->getTotalSpentTalkingTime() << " " 
+                 << operators[i]->getTotalMessageSent() << " " << operators[i]->getTotalInternetUsage() << "\n";
     }
 
     int max_time = 0;
