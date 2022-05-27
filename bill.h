@@ -61,20 +61,26 @@ double Bill::getTotalMoneySpent() const {
   return totalMoneySpent;
 }
 
-void Bill::add(double ammount) {
-  if (ammount > 0) {
-    currentDebt += ammount;
-  }
+void Bill::add(double amount) {
+  if (amount > 0) {
+    currentDebt += amount;
+  }  
 }
 
 void Bill::pay(double amount) {
   if (amount > 0) {
     if (amount > currentDebt) {
+      //std::cout << "Pay Ammount " << amount << " higher than debt, paying " << currentDebt <<"\n";
       amount = currentDebt;
     }
     totalMoneySpent += amount;
     currentDebt -= amount;
   }
+  /*
+  else { 
+    std::cout << "Pay Ammount " << amount << " lower than zero\n";
+  }
+  */
 }
 
 void Bill::changeTheLimit(double ammount) {
@@ -83,7 +89,13 @@ void Bill::changeTheLimit(double ammount) {
   }
 }
 
-bool Bill::check(double ammount) const {
-  return (currentDebt + ammount) <= limitAmount;
+bool Bill::check(double amount) const {
+  /*
+  if (!((currentDebt + amount) <= limitAmount)) {
+    std::cout << " Check Ammount " << amount << " Current debt " << currentDebt 
+              << " higher than limit " << limitAmount << "\n";
+  }
+  */
+  return (currentDebt + amount) <= limitAmount;
 }
 #endif

@@ -88,6 +88,11 @@ void Customer::talk (int minutes, Customer &other) {
   double cost;
   if (minutes > 0 && other.getId() != id) {
     cost = op->calculateTalkingCost(minutes, age);
+    /*
+    if (!((bill->getCurrentDebt() + cost) <= bill->getLimitAmount())) {
+      std::cout << "Customer: " << id << "\n";
+    }
+    */
     if (bill->check(cost)) {
       bill->add(cost);
       addTalkingTime(minutes);
@@ -103,6 +108,11 @@ void Customer::message(int quantity, const Customer &other) {
   double cost = 0;
   if (quantity > 0 && other.getId() != id) {
     cost = op->calculateMessageCost(quantity, op->getId(), other.op->getId());
+    /*
+    if (!((bill->getCurrentDebt() + cost) <= bill->getLimitAmount())) {
+      std::cout << "Customer: " << id << "\n";
+    }
+    */
     if (bill->check(cost)) {
       bill->add(cost);
       addTotalMessageSent(quantity);
@@ -115,6 +125,11 @@ void Customer::connection(double ammount) {
   double cost = 0;
   if (ammount > 0) {
     cost = op->calculateNetworkCost(ammount);
+    /*
+    if (!((bill->getCurrentDebt() + cost) <= bill->getLimitAmount())) {
+      std::cout << "Customer: " << id << "\n";
+    }
+    */
     if (bill->check(cost)) {
       bill->add(cost);
       addTotalInternetUsage(ammount);
@@ -124,6 +139,11 @@ void Customer::connection(double ammount) {
 }
 
 void Customer::pay(double amount) {
+    /*
+    if (amount > bill->getCurrentDebt()) {
+      std::cout << "Customer: " << id << "\n";
+    }
+    */
   bill->pay(amount);
 }
 
