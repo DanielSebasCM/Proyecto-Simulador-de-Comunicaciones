@@ -28,6 +28,8 @@ app
 *.log
 *.sql
 *.sqlite
+*.json
+settings.json
 
 # OS generated files #
 ######################

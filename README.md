@@ -152,7 +152,7 @@ Toma en cuenta que el identificador del cliente será el orden de creación. Por
 Esta línea contiene un 2 seguido del cargo por llamada, cargo por mensaje, cargo por uso de internet y el descuento a aplicar.
 
 ```
-2 <talkingCharge> <messageCost> <networkCharge> <discountRate>
+2 "<type>" <talkingCharge> <messageCost> <networkCharge> <discountRate>
 ```
 Toma en cuenta que el identificador del operador será el orden de creación. Por ejemplo, el primer operador creado debe tener Id 0 y debe colocarse en la posición 0 del vector.
 
