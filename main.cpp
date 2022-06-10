@@ -155,7 +155,7 @@ int main(int argc, char* argv []) {
 
     outputFile << std::fixed << std::setprecision(2) << customers[id_max_connection]->getName() << ": " 
                << customers[id_max_connection]->getTotalInternetUsage() << "\n";
-/*          
+/*  DEBUGING
     for (itr_c = customers.begin(); itr_c != customers.end(); itr_c++) {
     outputFile << std::fixed << std::setprecision(2) << (*itr_c)->getName() << ": " 
                << (*itr_c)->getTotalSpentTalkingTime() << " " 
@@ -167,14 +167,20 @@ int main(int argc, char* argv []) {
     inputFile.close();
     outputFile.close();
 
-    // Free memory alocated in vectors
-    customers.clear();
+
+    // Deconstruct customers
+
+    for (int i = 0; i < customers.size(); ++i) {
+        delete customers[i];
+    }
 
     // Deconstruct operators
     for (int i = 0; i < operators.size(); ++i) {
         delete operators[i];
     }
 
+    // Free memory alocated in vectors
+    customers.clear();
     operators.clear();
 
     return 0;
