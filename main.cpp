@@ -111,8 +111,7 @@ int main(int argc, char* argv []) {
     vector<Operator *>::iterator itr_op;
     for (itr_op = operators.begin(); itr_op != operators.end(); itr_op++) {
 
-      outputFile << std::fixed << std::setprecision(2) << "Operator " << (*itr_op)->getId() << ": " << (*itr_op)->getTotalSpentTalkingTime() << " " 
-                 << (*itr_op)->getTotalMessageSent() << " " << (*itr_op)->getTotalInternetUsage() << "\n";
+      outputFile << (*itr_op)->toString();
     }
 
     int max_time = 0;
@@ -127,9 +126,7 @@ int main(int argc, char* argv []) {
     for (itr_c = customers.begin(); itr_c != customers.end(); itr_c++) {
 
       // Writes the Customers and theit total money spent, current debt 
-      outputFile << std::fixed << std::setprecision(2) << "Customer " << (*itr_c)->getId() << ": " 
-                 << (*itr_c)->getBill()->getTotalMoneySpent() << " " 
-                 << (*itr_c)->getBill()->getCurrentDebt() << "\n";
+      outputFile << (*itr_c)->toString();
 
       // Finds de customers with the most time, messages and networking used
       if ((*itr_c)->getTotalSpentTalkingTime() > max_time) {
@@ -147,7 +144,7 @@ int main(int argc, char* argv []) {
     }
 
     // Writes the customers with most time, messages and networking used
-    outputFile << std::fixed << std::setprecision(2) << customers[id_max_time]->getName() << ": " 
+    outputFile << customers[id_max_time]->getName() << ": " 
                << customers[id_max_time]->getTotalSpentTalkingTime() << "\n";
 
     outputFile << std::fixed << std::setprecision(2) << customers[id_max_messages]->getName() << ": " 

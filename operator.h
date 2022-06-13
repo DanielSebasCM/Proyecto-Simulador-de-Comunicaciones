@@ -97,7 +97,7 @@ std::string Operator::toString() const {
   
   std::ostringstream stream;
   
-  stream << std::fixed << std::setprecision(2) << "Operator #" << id << " : " 
+  stream << std::fixed << std::setprecision(2) << "Operator " << id << ": " 
          << totalSpentTalkingTime << " " 
          << totalMessageSent << " " << totalInternetUsage << "\n";
   return stream.str();
