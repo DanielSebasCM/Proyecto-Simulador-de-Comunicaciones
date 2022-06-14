@@ -28,9 +28,9 @@ TEST_CASE("testing default constructor",
   REQUIRE(c1.getTotalSpentTalkingTime() == 0.0);
   REQUIRE(c1.getTotalMessageSent() == 0.0);
   REQUIRE(c1.getTotalInternetUsage() == 0.0);
-  REQUIRE(c1.getOperator() != NULL);
+  REQUIRE(c1.getOperator() != 0);
   REQUIRE(c1.getOperator()->getId() == 1);
-  REQUIRE(c1.getBill() != NULL);
+  REQUIRE(c1.getBill() != 0);
   REQUIRE(c1.getBill()->getLimitAmount() == 100);
 
   delete vox;

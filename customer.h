@@ -96,7 +96,7 @@ void Customer::talk (int minutes, Customer &other) {
     if (bill->check(cost)) {
       bill->add(cost);
       addTalkingTime(minutes);
-      other.addTalkingTime(minutes);
+      //other.addTalkingTime(minutes);
       op->addTalkingTime(minutes);
       if (op->getId() != other.op->getId()) {
         other.op->addTalkingTime(minutes);

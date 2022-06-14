@@ -55,11 +55,8 @@ double InternetOperator::calculateMessageCost(int quantity, int thisOpId, int ot
 
 double InternetOperator::calculateNetworkCost(double ammount) {      
   double cost = 0;
-  if (totalInternetUsage > LIMITGB) {
-    cost = (ammount) * networkCharge;
-  }
-  else if(ammount + totalInternetUsage > LIMITGB){
-    cost = (ammount + totalInternetUsage - LIMITGB) * networkCharge;
+  if (ammount > LIMITGB) {
+    cost = (ammount - LIMITGB) * networkCharge;
   }
   return cost;
 }    
