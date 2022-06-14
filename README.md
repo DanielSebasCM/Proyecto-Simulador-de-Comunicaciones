@@ -94,7 +94,7 @@ La clase cuenta con los siguientes métodos:
 * Constructor de copia. Debe invocar al constructor de la clase superior.
 * `calculateTalkingCost(int minute, int age)`: Si la cantidad de minutos o la edad es menor igual a 0, regresará 0. En caso contrario, calcula el costo de la llamada tomando en cuenta el costo por minuto definido. Si la cantidad de minutos es menor a 2, le aplica el descuento definido.
 * `double calculateMessageCost(int quantity, int thisOpId, int otherOpId)`: Si la cantidad de mensajes es menor igual a 0, regresará 0. En caso contrario, calcula el costo de enviar los mensajes tomando en cuenta el costo por envío definido. Si la cantidad de mensajes enviados es menor a 3, le aplica el descuento definido.
-* `calculateNetworkCost(double amount)`: Si la cantidad de GB es menor o igual a cero, regresará 0. Sólo se aplicarán cargos si la cantidad de GB utilizados en total, excede al limite de 1GB.
+* `calculateNetworkCost(double amount)`: Si la cantidad de GB es menor o igual a cero, regresará 0. Sólo se cobrará la cantidad de GB que exceda el limite de 1 GB.
 
 #### <span style="color: rgb(26, 99, 169);">**Customer**</span>
 La clase `Customer` cuenta con las siguientes variables de estado:
@@ -113,7 +113,7 @@ La clase cuenta con los siguientes métodos:
 * Destructor. Debe eliminar la factura. Todos los apuntadores debe ser igualados a nulo.
 * Métodos de acceso para todas las variables de instancia. (Si consideras necesario agregar métodos de modificación, adelante).
 * Método de modificación para la variable *op*.
-* `talk (int minutes, Customer &other)`: Si la cantidad es mayor a 0 y `other` es un cliente diferente, se calcula el costo por los minutos que duró la llamada. Si todavía hay límite de crédito en la factura, deberá agregar el costo a la factura y agrega los minutos empleados tanto en el conteo de los clientes involucrados como del operador de este cliente.
+* `talk (int minutes, Customer &other)`: Si la cantidad es mayor a 0 y `other` es un cliente diferente, se calcula el costo por los minutos que duró la llamada. Si todavía hay límite de crédito en la factura, deberá agregar el costo a la factura y agregar los minutos empleados al conteo de nuestro cliente y su operador. Si el operador de nuestro cliente y el `other`son diferentes, también deberá de agregarse esta cantidad al otro operador.
 * `message(int quantity, const Customer &other)`: Si la cantidad es mayor a 0 y `other` es un cliente diferente, se calcula el costo por los mensajes enviados. Si todavía hay límite de crédito en la factura, deberá agregar el costo a la factura y agrega los mensajes enviados en el conteo del cliente y del operador.
 * `connection(double amount)`: Si la cantidad es mayor a 0, se calcula el costo por el uso de Internet. Si todavía hay límite de crédito en la factura, deberá agregar el costo a la factura y agrega los GB utilizados tanto en el conteo del cliente y del operador.
 * `toString()`: Regresa un string con el siguiente formato: "Customer #id : totalMoneySpend currentDebt". Todas las cantidades de punto flotantes deben tener una precisión de dos números decimales.
@@ -149,10 +149,10 @@ Esta línea contiene un 1 seguido del nombre del cliente, la edad, el identifica
 Toma en cuenta que el identificador del cliente será el orden de creación. Por ejemplo, el primer cliente creado debe tener id 0 y debe colocarse la posición 0 del vector. Además, no existe ninguna operación para crear un objeto `Bill` (lo debes realizar en el constructor del cliente).
 
 ##### <span style="color: rgb(26, 99, 169);">**2. Creando un nuevo operador**</span>
-Esta línea contiene un 2 seguido del cargo por llamada, cargo por mensaje, cargo por uso de internet y el descuento a aplicar.
+Esta línea contiene un 2 seguido del tipo de operador (1 = VOX, 2 = INTERNET), cargo por llamada, cargo por mensaje, cargo por uso de internet y el descuento a aplicar.
 
 ```
-2 "<type>" <talkingCharge> <messageCost> <networkCharge> <discountRate>
+2 <opType> <talkingCharge> <messageCost> <networkCharge> <discountRate>
 ```
 Toma en cuenta que el identificador del operador será el orden de creación. Por ejemplo, el primer operador creado debe tener Id 0 y debe colocarse en la posición 0 del vector.
 
